@@ -1,0 +1,40 @@
+.searchForm {
+  display: inline-flex;
+  width: 80%;
+  margin-top: 2%;
+}
+
+.searchBox {
+  width: 60%;
+  text-align: right;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  outline: none;
+  border: none;
+  opacity: -1;
+  transition: opacity 1s ease-in;
+}
+
+.active {
+  opacity: 1;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.bloggerName {
+  font-size: 30px;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
