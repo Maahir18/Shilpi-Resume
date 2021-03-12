@@ -1,0 +1,12 @@
+.grid-container {
+  display: grid;
+}
+
+form > label {
+  width: 25%;
+}
+
+.grid-container input[type="submit"] {
+  width: 250px;
+  float: right;
+}

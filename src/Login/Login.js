@@ -1,24 +1,31 @@
-import e from 'cors';
 import React,{Component} from 'react'
 import './Login.css'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class Login extends Component {
+    
     constructor(props) {
-        super(props);
+    const token = localStorage.getItem("token");
 
+      let isSignedIn =  true
+      if(token == null){
+        isSignedIn = false
+      }
+        super(props);
 
         this.state = {
             email:'',
-            password:''
+            password:'',
+            isSignedIn
+
         }
+        
     }
     
 
     handleSubmit = (e) => {
         e.preventDefault();
-       // console.log(this.state);
-
       
     const obj = {
             email:this.state.email,
@@ -27,7 +34,13 @@ class Login extends Component {
        console.log(obj);
       
        axios.post('http://localhost:80/ReactPHPCRUD/login.php', obj)
-       .then(res=>console.log(res.data))
+       .then(res=>{
+                console.log(res.data[1].firstname);
+                localStorage.setItem("token", res.data[1].firstname);
+                
+                this.handleShow();
+            }
+       )
        .catch(err=>console.log(err));
 
        this.setState({
@@ -36,7 +49,26 @@ class Login extends Component {
        })
     }
 
+    handleShow=()=>{
+        if(!this.state.isSignedIn){
+           this.setState({
+                    isSignedIn: true
+                })
+                console.log(this.state.isSignedIn);
+       }
+       if(this.props.setModalIsOpen){
+           this.props.setModalIsOpen(false);
+       } 
+        
+
+    }
+    
+
     render(){
+        
+        if(this.state.isSignedIn){
+            return <Redirect to="/UserAccount"/>
+        }
     return (
         <div className="modal-styling">            
             <h1>Login In or Register</h1>

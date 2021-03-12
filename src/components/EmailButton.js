@@ -8,22 +8,22 @@ import Login from '../Login/Login';
 
 Modal.setAppElement('#root');
 function EmailButton(props){
-  
 
   const[modalIsOpen, setModalIsOpen] = useState(false);
 
    const callModal = () =>{
-       console.log(modalIsOpen);
        if(!modalIsOpen){    
             setModalIsOpen(true);
        }
    }
   
     const history = useHistory();
+
     const routeChange = () =>{ 
       if(props.fromBlog) {
         let path = `/Blogs/1`; 
         history.push(path);
+        callModal();
       }else {
         let path = `Contact`; 
         history.push(path);
@@ -33,10 +33,10 @@ function EmailButton(props){
     return(
         <div className="e-btn">
             <input type="button" value={props.value} className="email-button"
-          onClick={routeChange, callModal} />
+          onClick={routeChange} />
          
           <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setModalIsOpen(false)}>
-                <Login/>  
+                <Login setModalIsOpen={setModalIsOpen}/>  
           </Modal>
         </div>
     );
